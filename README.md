@@ -1,4 +1,4 @@
-# drawing-chromosomes
+# Drawing chromosomes
 
 ## Usage
 
