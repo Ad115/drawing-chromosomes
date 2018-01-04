@@ -15,9 +15,32 @@ var chromosomeLength = 248956422;
 var centromereStart = 122026460;
 var centromereEnd = 125184587;
 
+var table;
+
+function preload() {
+  table = loadTable('data/centromeric-regions.tsv', 'tsv', 'header');
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(220);
+
+  //count the columns
+  print(table.getRowCount() + ' total rows in table');
+  print(table.getColumnCount() + ' total columns in table');
+
+  print(table.columns);
+  let species = table.getColumn("Species").filter((v, i, a) => a.indexOf(v) === i);
+  print(species);
+
+  //cycle through the table
+  for (var r = 0; r < table.getRowCount(); r++) {
+    var row = ''
+    for (var c = 0; c < table.getColumnCount(); c++) {
+      row += table.getString(r, c) + "\t";
+    }
+    print(row);
+  }
 }
 
 function draw() {
