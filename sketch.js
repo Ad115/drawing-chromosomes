@@ -2,18 +2,10 @@
 Draw chromosomes
 ================
 
-Example
--------
-
-Species: Homo sapiens
-Chromosome: 1
-Chromosome size: 248956422
-Centromeric region: 122026460-125184587
-Reference: GRCh38.p12. (https://www.ncbi.nlm.nih.gov/grc/human/data, https://www.ncbi.nlm.nih.gov/grc/human )
+Draw the chromosome data from the table in the data folder.
+For each species, draw the relative size of the chromosomes
+centered on the centromere.
 */
-var chromosomeLength = 248956422;
-var centromereStart = 122026460;
-var centromereEnd = 125184587;
 
 var table;
 var data;
@@ -26,52 +18,48 @@ function preload() { /*
   table = loadTable('data/centromeric-regions.tsv', 'tsv', 'header');
 }
 
+
 function setup() {/*
-    Initial environment setup.
+    Drawing environment setup.
     */
     
     data = loadChromosomesData(table);
     print(data)
     
     // Create and prepare drawing canvas.
-    createCanvas(windowWidth, 5000);
+    createCanvas(windowWidth, 4000);
     
     background(220);
-    textAlign(CENTER, BOTTOM);
-    textSize(32);
     
     var y = 0;
     for (var species in data){
         // --- Draw the species name
         y += 50;
+        textAlign(CENTER, BOTTOM);
+        textSize(32);
         text(species, width/2, y);
         
         // --- Draw the chromosomes
         y += 10;
         
-        // Prepare to draw
+        // Calculate scaling factor.
         var maxSide = data[species]
                         .map(getLongestSide)
                         .reduce( (a, b) => Math.max(a, b) );
-        var margin = 30;
+        var margin = 50;
         var scale = (width/2-margin) / maxSide;
         
         // Draw the chromosomes and the chromosome name
         for(var i=0; i < data[species].length; i++) {
             chromosome = data[species][i];
             
-            text(chromosome.name, 20, y+20);
+            textAlign(LEFT, CENTER);
+            textSize(20);
+            text(chromosome.name, 20, y);
             drawChromosome(chromosome, width/2, y, scale);
             y += 30
-        }
-        
-        
+        }        
     }
-}
-
-function draw() { /*
-    Main drawing loop.
-    */
 }
 
 
@@ -106,6 +94,7 @@ function drawChromosome(chromosome, x, y, scale) { /*
         }
     pop(); // Restore previous coordinates
 }
+
 
 function loadChromosomesData(table) { /*
     Load the data in the given table into an object 
@@ -159,6 +148,7 @@ function loadChromosomesData(table) { /*
     
     return data;
 }
+
 
 function getLongestSide(chromosome) { /*
     From a chromosome object:
