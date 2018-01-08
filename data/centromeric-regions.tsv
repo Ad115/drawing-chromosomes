@@ -1,4 +1,4 @@
-Species	Chromosome	Total length (bp)	Centromeric region start	Centromeric region end	Reference
+species	chromosome	chromosome length (bp)	centromeric region start	centromeric region end	reference
 Homo sapiens	1	248956422	122026460	125184587	Reference genome: GRCh38.p12. (https://www.ncbi.nlm.nih.gov/grc/human/data, https://www.ncbi.nlm.nih.gov/grc/human )
 Homo sapiens	2	242193529	92188146	94090557	Reference genome: GRCh38.p12. (https://www.ncbi.nlm.nih.gov/grc/human/data, https://www.ncbi.nlm.nih.gov/grc/human )
 Homo sapiens	3	198295559	90772459	93655574	Reference genome: GRCh38.p12. (https://www.ncbi.nlm.nih.gov/grc/human/data, https://www.ncbi.nlm.nih.gov/grc/human )
