@@ -5,10 +5,31 @@ Draw chromosomes
 Draw the chromosome data from the table in the data folder.
 For each species, draw the relative size of the chromosomes
 centered on the centromere.
+ 
+This script (sketch) uses the p5.js library. The library
+exposes a series of globals to ease making graphics. To 
+learn more about p5.js, see <p5js.org> and <hello.p5js.org>.
+
+The main structure of a p5 sketch is as follows:
+
+    + The *preload* function is called before anything else to load
+      and prepare the environment. The main program is not started until 
+      the processes in *preload* are finished.
+      
+    + The *setup* function is called.
+    
+    + The *draw* function (if any) is called. It represents a continuous drawing loop.
+      It is required to draw non-static images.
+
+In the present sketch, the chromosomes are drawn in the *setup* function 
+and they are not animated, so a *draw* loop is not needed.
 */
 
 var table;
-var data;
+
+
+
+// ---> Main functions <---
 
 function preload() { /*
     File I/O is asynchronous, so it must be in the
@@ -23,8 +44,7 @@ function setup() {/*
     Drawing environment setup.
     */
     
-    data = loadChromosomesData(table);
-    print(data)
+    let data = loadChromosomesData(table);
     
     // Create and prepare drawing canvas.
     createCanvas(windowWidth, 4000);
@@ -62,6 +82,8 @@ function setup() {/*
     }
 }
 
+
+// ---> Extra functions <---
 
 function drawChromosome(chromosome, x, y, scale) { /* 
     Draw a chromosome centered on the centromere 
@@ -155,7 +177,7 @@ function getLongestSide(chromosome) { /*
     c = { 'name': 'IV',
           'length': XXXX,
           'centromere': XXXX },
-    get the longest of `c.centromere` and `c.length - c.centromere`
+    get the longest of `c.centromere` and `c.length - c.centromere`.
     */
     let centromere = chromosome.centromere
     return Math.max(centromere, chromosome.length-centromere);
