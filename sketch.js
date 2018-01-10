@@ -36,20 +36,21 @@ function preload() { /*
     preload function to ensure data has been read
     before it is used.
     */
-  table = loadTable('data/centromeric-regions.tsv', 'tsv', 'header');
+    table = loadTable('data/centromeric-regions.tsv', 'tsv', 'header');
 }
 
 
 function setup() {/*
-    Drawing environment setup.
-    */
+    Drawing environment setup. 
     
+    Executed after the preload function, so that 'table'
+    already contains the data from centromeric-regions.tsv
+    */
     let data = loadChromosomesData(table);
     
     // Create and prepare drawing canvas.
-    createCanvas(windowWidth, 4000);
-    
-    background(220);
+    createCanvas(windowWidth, 5000);
+    background(250);
     
     var y = 0;
     for (var species in data){
@@ -95,7 +96,7 @@ function drawChromosome(chromosome, x, y, scale) { /*
     let length = scale * chromosome.length
     let centromere = scale * (chromosome.centromere 
                                 ? chromosome.centromere
-                                : length/2);
+                                : chromosome.length/2);
     // Constants
     let centromereRadius = 18;
     let chromosomeWidth = 17;
@@ -104,9 +105,13 @@ function drawChromosome(chromosome, x, y, scale) { /*
         translate(x, y); // Coordinates relative to the point x,y
 
         // Draw chromosome sides
+        stroke(100, 100);
+        strokeWeight(chromosomeWidth*1.3);
+        line(-centromere, 0, length-centromere, 0);
         stroke(150);
         strokeWeight(chromosomeWidth);
         line(-centromere, 0, length-centromere, 0);
+        
 
         // Draw centromere
         if (chromosome.centromere) {
@@ -143,13 +148,12 @@ function loadChromosomesData(table) { /*
     */
     var data = {};
     for (var r = 0; r < table.getRowCount(); r++) {
-        
         let row = table.getRow(r);
         
         // --- Fetch species data
         let species = row.getString('species');
         if (!data[species])
-            data[species] = []; // Create species list if doesn't already exists
+            data[species] = []; // Create species list if doesn't already exists        
         
         // --- Fetch chromosome data
         chromosome = {};
